@@ -75,7 +75,7 @@
 import AddUser from './AddUser.vue'
 import EditUser from './EditUser.vue'
 import dateUtil from '@/utils/dateUtil'
-import {getUserList, deleteUser, getOrgTree, getUsersByOrgId} from '@/api/api'
+import {getUserList, deleteUser, getOrgTree} from '@/api/api'
 
 export default {
   name: 'info',
@@ -95,6 +95,7 @@ export default {
       tableData: [],
       pageSize: 10,
       pageNumber: 1,
+      org_id: 0,
       total: 0,
       params: {},
       dialogEdit: {
@@ -116,18 +117,19 @@ export default {
   methods: {
     getUserInfo (pageNumber, pageSize) {
       let para
-      console.log(pageNumber)
       if (pageNumber) {
         para = {
           name: this.filters.username,
           pageSize: this.pageSize,
-          pageNumber: pageNumber
+          pageNumber: pageNumber,
+          org_id: this.org_id
         }
       } else {
         para = {
           name: this.filters.username,
           pageSize: this.pageSize,
-          pageNumber: this.pageNumber
+          pageNumber: this.pageNumber,
+          org_id: this.org_id
         }
       }
       this.loading = true
@@ -144,10 +146,13 @@ export default {
     },
     // 点击节点方法
     handleNodeClick (data) {
+      this.org_id = data.id
       let param = {
-        org_id: data.id
+        org_id: this.org_id,
+        pageSize: this.pageSize,
+        pageNumber: 1
       }
-      getUsersByOrgId(param).then(result => {
+      getUserList(param).then(result => {
         this.tableData = result.data.rows
         this.total = result.data.total
         this.loading = false
@@ -171,7 +176,6 @@ export default {
         create_date: createDate,
         modify_date: modifyDate
       }
-      console.log(this.editForm)
     },
     handleDelete (index, row) { // 删除用户信息
       this.$confirm('确定删除?', '提示', {

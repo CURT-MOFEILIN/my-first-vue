@@ -8,8 +8,6 @@ export const getOrgs = params => { return Axios.get(`${base}/orgs/list`, { param
 
 export const getOrgTree = params => { return Axios.get(`${base}/orgs/getOrgTree`, { params: params }) }
 
-export const getUsersByOrgId = params => { return Axios.get(`${base}/user/getUsersByOrgId`, { params: params }) }
-
 export const deleteUser = params => { return Axios.get(`${base}/user/deteleById`, { params: params }) }
 
 export const editUser = params => { return Axios.get(`${base}/user/edit`, { params: params }) }
