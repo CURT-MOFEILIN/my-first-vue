@@ -28,8 +28,6 @@ export const addUser = postData => {
   })
 }
 
-export const getNextTreeId = () => { return Axios.get(`${base}/orgs/nextId`) }
-
 export const addOrg = postData => {
   return Axios({
     method: 'post',

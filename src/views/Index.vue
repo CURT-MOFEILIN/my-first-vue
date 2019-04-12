@@ -144,7 +144,7 @@ export default {
       editForm: { // 编辑信息
         id: '',
         name: '',
-        age: '',
+        age: 0,
         org_id: '',
         create_date: '',
         modify_date: ''

@@ -6,10 +6,10 @@
           <el-input v-model="editForm.id"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="editForm.name"></el-input>
+          <el-input v-model="editForm.name" clearable maxlength="20"></el-input>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
-          <el-input v-model="editForm.age"></el-input>
+          <el-input v-model="editForm.age" clearable maxlength="3"></el-input>
         </el-form-item>
         <el-form-item label="机构" prop="org_id">
           <el-select v-model="editForm.org_id" clearable placeholder="组织机构" style="width: 100%">
@@ -47,10 +47,21 @@ export default {
     editForm: Object
   },
   data () {
+    const validateAge = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入年龄'))
+        return false
+      } else if (isNaN(value)) {
+        callback(new Error('请输入数字'))
+        return false
+      } else {
+        callback()
+      }
+    }
     return {
       formRules: {
         name: [{required: true, message: '用户名不能为空', trigger: 'blur'}],
-        age: [{required: true, message: '年龄不能为空', trigger: 'blur'}],
+        age: [{required: true, trigger: 'blur', validator: validateAge}],
         org_id: [{required: true, message: '机构不能为空', trigger: 'blur'}]
       },
       readonly: true,

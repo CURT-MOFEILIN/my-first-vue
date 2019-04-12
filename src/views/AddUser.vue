@@ -3,10 +3,10 @@
     <el-dialog title="添加用户" :visible.sync="dialogAdd.show">
       <el-form :model="form" ref="userForm" label-width="100px" :rules="formRules">
         <el-form-item label="姓名" prop="name">
-          <el-input v-model="form.name" style="width: 500px"></el-input>
+          <el-input v-model="form.name" clearable maxlength="20" style="width: 500px"></el-input>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
-          <el-input v-model="form.age" style="width: 500px"></el-input>
+          <el-input v-model="form.age" clearable maxlength="3" style="width: 500px"></el-input>
         </el-form-item>
         <el-form-item label="机构" prop="org_id">
           <el-select v-model="form.org_id" clearable placeholder="组织机构" style="width: 500px">
@@ -52,8 +52,10 @@ export default {
     const validateAge = (rule, value, callback) => {
       if (!value) {
         callback(new Error('请输入年龄'))
+        return false
       } else if (isNaN(value)) {
         callback(new Error('请输入数字'))
+        return false
       } else {
         callback()
       }

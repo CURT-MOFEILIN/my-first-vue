@@ -3,8 +3,7 @@ import Router from 'vue-router'
 import index from '@/views/Index'
 import Login from '@/views/Login'
 import sysSet from '@/views/sysSet'
-import leftNav from '@/components/LeftNav'
-import orgTree from '@/components/orgTree'
+import orgTree from '@/views/orgTree'
 
 Vue.use(Router)
 
@@ -13,27 +12,34 @@ export default new Router({
     {
       path: '/',
       name: '登录',
-      component: Login
-    },
-    {
-      path: '/leftNav',
-      name: '导航',
-      component: leftNav
+      component: Login,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/index',
       name: '首页',
-      component: index
+      component: index,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/orgTree',
       name: '机构树',
-      component: orgTree
+      component: orgTree,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/sysSet',
       name: '设置',
-      component: sysSet
+      component: sysSet,
+      meta: {
+        keepAlive: true
+      }
     }
   ]
 })
