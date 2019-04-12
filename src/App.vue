@@ -1,3 +1,32 @@
+<template>
+  <div class="info" id="app">
+    <LeftNav></LeftNav>
+    <transition name="fade"
+                mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
+</template>
+
+<script>
+import LeftNav from '@/components/LeftNav'
+export default {
+  name: 'app',
+  components: {
+    LeftNav
+  }
+}
+</script>
+
+<style scoped>
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
+</style>
 <!--
 <template>
   <div class="info" id="app">

@@ -1,10 +1,15 @@
 <template>
-  <div>123</div>
+  <div>
+    123
+  </div>
 </template>
 
 <script>
+
 export default {
-  name: 'sysSet'
+  name: 'sysSet',
+  components: {
+  }
 }
 </script>
 

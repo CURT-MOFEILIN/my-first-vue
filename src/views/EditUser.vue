@@ -67,10 +67,17 @@ export default {
           params.append('age', this.editForm.age)
           params.append('org_id', this.editForm.org_id)
           editUser(params).then(res => {
-            this.$message({
-              type: 'success',
-              message: '编辑信息成功'
-            })
+            if (res.data === 'success') {
+              this.$message({
+                type: 'success',
+                message: '编辑信息成功'
+              })
+            } else {
+              this.$message({
+                type: 'error',
+                message: res.data
+              })
+            }
             this.dialogEdit.show = false
             this.$emit('updateEdit')
           })

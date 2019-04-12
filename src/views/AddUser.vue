@@ -9,7 +9,6 @@
           <el-input v-model="form.age" style="width: 500px"></el-input>
         </el-form-item>
         <el-form-item label="机构" prop="org_id">
-          <!--<el-input v-model="form.org_id"></el-input>-->
           <el-select v-model="form.org_id" clearable placeholder="组织机构" style="width: 500px">
             <el-option
               v-for="item in orgs"
@@ -30,6 +29,7 @@
 
 <script>
 import {addUser, getOrgs} from '@/api/api'
+import {isString} from '@/utils/validate'
 
 export default {
   name: 'AddUser',
@@ -40,6 +40,24 @@ export default {
     org_id: String
   },
   data () {
+    const validateString = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入姓名'))
+      } else if (!isString(value)) {
+        callback(new Error('请输入文字'))
+      } else {
+        callback()
+      }
+    }
+    const validateAge = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('请输入年龄'))
+      } else if (isNaN(value)) {
+        callback(new Error('请输入数字'))
+      } else {
+        callback()
+      }
+    }
     return {
       form: {
         name: '',
@@ -47,9 +65,9 @@ export default {
         org_id: ''
       },
       formRules: {
-        name: [{required: true, message: '用户名不能为空', trigger: 'blur'}],
-        age: [{required: true, message: '年龄不能为空', trigger: 'blur'}],
-        org_id: [{required: true, message: '机构不能为空', trigger: 'blur'}]
+        name: [{required: true, message: '用户名不能为空', trigger: 'blur', validator: validateString}],
+        age: [{required: true, trigger: 'blur', validator: validateAge}],
+        org_id: [{required: true, message: '请选择所属机构', trigger: 'blur'}]
       },
       orgs: []
     }
@@ -64,8 +82,15 @@ export default {
             org_id: this.form.org_id
           })
           addUser(postData).then(res => {
-            this.dialogAdd.show = false
-            this.$emit('update')
+            if (res.data === 'success') {
+              this.$message({
+                type: 'success',
+                message: '编辑信息成功'
+              })
+            } else {
+              this.dialogAdd.show = false
+              this.$emit('update')
+            }
           })
           this.form.name = ''
           this.form.age = ''

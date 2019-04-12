@@ -5,7 +5,7 @@ import Vue from 'vue'
 import router from './router'
 import store from 'store'
 import ElementUI from 'element-ui'
-import Navi from './components/LeftNav'
+import App from './App'
 import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -19,5 +19,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  render: h => h(Navi)
+  render: h => h(App)
 })
