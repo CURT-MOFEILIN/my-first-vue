@@ -3,7 +3,7 @@
     <el-dialog title="添加机构" :visible.sync="addOrg.show">
       <el-form :model="orgForm" ref="orgForm" label-width="100px" :rules="addOrgRules">
         <el-form-item label="机构名称" prop="add_org_name">
-          <el-input v-model="orgForm.add_org_name" style="width: 500px"></el-input>
+          <el-input v-model="orgForm.add_org_name" clearable maxlength="20" style="width: 500px"></el-input>
         </el-form-item>
         <el-form-item label="机构父级ID" prop="add_org_id" v-show="false">
           <el-input v-model="orgForm.add_org_id" style="width: 500px"></el-input>

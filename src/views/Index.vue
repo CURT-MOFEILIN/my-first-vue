@@ -30,7 +30,9 @@
           <span v-show="node.isEdit">
             <el-input class="slot-t-input" size="mini" autofocus
                       v-model="data.org_name"
+                      clearable maxlength="10"
                       :ref="'slotTreeInput'+data.id"
+                      @blur.stop="NodeBlur(node, data)"
                       @keyup.enter.native="NodeBlur(node, data)">
             </el-input>
           </span>

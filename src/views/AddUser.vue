@@ -90,9 +90,13 @@ export default {
                 message: '编辑信息成功'
               })
             } else {
-              this.dialogAdd.show = false
-              this.$emit('update')
+              this.$message({
+                type: 'error',
+                message: res.data
+              })
             }
+            this.dialogAdd.show = false
+            this.$emit('update')
           })
           this.form.name = ''
           this.form.age = ''
